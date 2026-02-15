@@ -1,72 +1,42 @@
 from tkinter import *
-import tkinter as ttk
+from tkinter import ttk
 
-root=ttk.Tk()
+vlv=0
+
+root = Tk()
+root.title("METANIT.COM")
 root.geometry("400x1000")
-root.title("опросник")
-
-totalanswer=Label(anchor=CENTER,text="отвечайте ниже:")
-totalanswer.pack()
-
-correctanswer=0
 
 def finish():
-    global correctanswer
-    answerAge=entry.get().strip()
-    answername=entry2.get().strip()
+    global vlv
+    if combobox.get() == 7:
+        vlv+=50
+    if sch.get() == 30:
+        vlv+=50
 
-    if manVar.get() == "m":
-        gender="мужской"
-    else:
-        gender="женский"
+value_var = IntVar(value=vlv)
+progr=ttk.Progressbar(orient=HORIZONTAL,variable=value_var)
+progr.pack(anchor=N)
 
-    if str(monthVar.get())=="12":
-        correctanswer +=1
-    resultmessage=f"ваши результаты:\n Возраст:{answerAge}\nИмя:{answername}\nпол:{gender},\nправильных ответов:{correctanswer}"
-    totalanswer.config(text=resultmessage)
+label=Label(text="сколько будет 2+5?")
+label.pack(pady=10)
 
-label=Label(anchor=N,text="введите свой возраст")
-label.pack(pady=20)
+answervar=IntVar()
 
-entry=Entry()
-entry.pack()
+answer = [1,2,4,7,6,4,6,5,100,77,68,45]
+combobox = ttk.Combobox(values=answer,textvariable=answervar)
+combobox.pack(anchor=N,  pady=6)
 
-label2=Label(anchor=N,text="введите свое имя")
-label2.pack(pady=20)
+label2=Label(text="сколько будет 10-7?")
+label2.pack(anchor=N,pady=10)
 
-entry2=Entry()
-entry2.pack()
+sch=ttk.Scale(orient=HORIZONTAL)
+sch.pack(anchor=N)
 
-label3=Label(anchor=N,text="ваш пол")
-label3.pack(pady=20)
+val = IntVar(value=10)
 
-manVar=StringVar(value="none")
-man=Radiobutton(anchor=N,text="мужской",value="m",variable=manVar)
-man.pack()
+label3=Label(textvariable=val).pack(anchor=N)
 
-woman=Radiobutton(anchor=N,text="женский",value="wm",variable=manVar)
-woman.pack()
-
-label4=Label(text="сколько месяцев в году?")
-label4.pack(pady=40)
-
-monthVar=IntVar(value=0)
-
-btn=Radiobutton(text="4",value="4", variable=monthVar)
+btn=Button(anchor=N,text="завершить",command=finish)
 btn.pack()
-
-btn2=Radiobutton(text="9",value="9", variable=monthVar)
-btn2.pack()
-
-btn3=Radiobutton(text="12",value="12", variable=monthVar)
-btn3.pack()
-
-label5=Label(text="какие числа больше 5:")
-label5.pack(pady=40)
-
-
-btnfinish=Button(text="завершить",command=finish)
-btnfinish.pack()
-
-
 root.mainloop()
