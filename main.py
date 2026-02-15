@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-vlv=0
+
 
 root = Tk()
 root.title("METANIT.COM")
