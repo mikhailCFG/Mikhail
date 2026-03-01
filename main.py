@@ -1,42 +1,43 @@
+import tkinter
+from tabnanny import check
 from tkinter import *
 from tkinter import ttk
 
-
-
 root = Tk()
-root.title("METANIT.COM")
-root.geometry("400x1000")
+root.geometry("700x400")
 
-def finish():
-    global vlv
-    if combobox.get() == 7:
-        vlv+=50
-    if sch.get() == 30:
-        vlv+=50
+notebook=ttk.Notebook()
+notebook.pack(fill=BOTH)
 
-value_var = IntVar(value=vlv)
-progr=ttk.Progressbar(orient=HORIZONTAL,variable=value_var)
-progr.pack(anchor=N)
+frame1 = ttk.Frame(notebook)
+frame2 = ttk.Frame(notebook,)
+frame3=ttk.Frame(notebook)
+frame1.pack(fill=BOTH, expand=True)
+frame2.pack(fill=BOTH, expand=True)
+frame3.pack(fill=BOTH,expand=True)
 
-label=Label(text="сколько будет 2+5?")
-label.pack(pady=10)
+notebook.add(frame1, text="код",  compound=RIGHT)
+notebook.add(frame2, text="настройки", compound=LEFT)
+notebook.add(frame3,text="файлы")
 
-answervar=IntVar()
+text=Text(frame1,background="black",fg="white",borderwidth=5,height=50)
+text.pack()
 
-answer = [1,2,4,7,6,4,6,5,100,77,68,45]
-combobox = ttk.Combobox(values=answer,textvariable=answervar)
-combobox.pack(anchor=N,  pady=6)
+label=Label(frame2,text="тема",font=("arial",12))
+label.pack(anchor=NW,padx=10)
 
-label2=Label(text="сколько будет 10-7?")
-label2.pack(anchor=N,pady=10)
+radio=ttk.Checkbutton(frame2,text="черная")
+radio.pack(anchor=NW,padx=5)
+radio2=ttk.Checkbutton(frame2,text="белая")
+radio2.pack(anchor=NW,padx=5)
 
-sch=ttk.Scale(orient=HORIZONTAL)
-sch.pack(anchor=N)
+label2=Label(frame2,text="яркость")
+label2.pack(anchor=NW)
+prog=ttk.Progressbar(frame2,value=50)
+prog.pack(anchor=NW,)
+label3=Label(frame2,text=f"50%")
+label3.pack(anchor=NW,)
 
-val = IntVar(value=10)
 
-label3=Label(textvariable=val).pack(anchor=N)
 
-btn=Button(anchor=N,text="завершить",command=finish)
-btn.pack()
 root.mainloop()
