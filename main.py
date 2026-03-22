@@ -1,43 +1,56 @@
-import tkinter
-from tabnanny import check
 from tkinter import *
-from tkinter import ttk
+from tkinter.scrolledtext import ScrolledText
+import tkinter as tk
 
-root = Tk()
-root.geometry("700x400")
+root=tk.Tk()
+root.geometry("500x500")
 
-notebook=ttk.Notebook()
-notebook.pack(fill=BOTH)
+editor=ScrolledText(wrap="word")
+editor.pack(anchor=NW)
 
-frame1 = ttk.Frame(notebook)
-frame2 = ttk.Frame(notebook,)
-frame3=ttk.Frame(notebook)
-frame1.pack(fill=BOTH, expand=True)
-frame2.pack(fill=BOTH, expand=True)
-frame3.pack(fill=BOTH,expand=True)
+frame=Frame()
+frame.pack(anchor=NW)
 
-notebook.add(frame1, text="код",  compound=RIGHT)
-notebook.add(frame2, text="настройки", compound=LEFT)
-notebook.add(frame3,text="файлы")
+def delete():
+    editor.delete(1.0,END)
 
-text=Text(frame1,background="black",fg="white",borderwidth=5,height=50)
-text.pack()
+button=Button(frame,text="очистить",command=delete)
+button.pack(side=LEFT)
 
-label=Label(frame2,text="тема",font=("arial",12))
-label.pack(anchor=NW,padx=10)
+def save():
+    a=editor.get(1.0,END)
+    file=open("save.txt","w",encoding="UTF-8")
+    file.write(a)
 
-radio=ttk.Checkbutton(frame2,text="черная")
-radio.pack(anchor=NW,padx=5)
-radio2=ttk.Checkbutton(frame2,text="белая")
-radio2.pack(anchor=NW,padx=5)
+btn=Button(frame,text="сохранить",command=save)
+btn.pack(side=LEFT)
 
-label2=Label(frame2,text="яркость")
-label2.pack(anchor=NW)
-prog=ttk.Progressbar(frame2,value=50)
-prog.pack(anchor=NW,)
-label3=Label(frame2,text=f"50%")
-label3.pack(anchor=NW,)
+def zzzz():
+    w=open("save.txt","r")
+    editor.delete(1.0,END)
+    editor.insert(1.0,w.read())
 
+btn2=Button(frame,text="загрузить",command=zzzz)
+btn2.pack(side=LEFT)
 
+def schet():
+    s=editor.get(1.0,END)
+    answer=len(s)
+    answer-=1
+    root.title(answer)
+
+btn3=Button(frame,text="подсчитать символы",command=schet)
+btn3.pack(side=LEFT)
+
+frame2=Frame()
+frame2.pack(anchor=NW)
+
+def yellow():
+    d=editor.selection_get()
+    editor.tag_add("yellow_tag","sel.first","sel.last")
+    editor.tag_configure("yellow_tag",background="yellow")
+
+btn4=Button(frame2,text="желтый",background="yellow",command=yellow)
+btn4.pack(side=LEFT)
 
 root.mainloop()
