@@ -1,56 +1,47 @@
-from tkinter import *
-from tkinter.scrolledtext import ScrolledText
+from tkinter import ttk
 import tkinter as tk
 
 root=tk.Tk()
-root.geometry("500x500")
+root.geometry("700x450")
 
-editor=ScrolledText(wrap="word")
-editor.pack(anchor=NW)
+columns=["name","people","square"]
 
-frame=Frame()
-frame.pack(anchor=NW)
 
-def delete():
-    editor.delete(1.0,END)
+tree=ttk.Treeview(columns=columns,show="headings")
+tree.pack(anchor="nw",expand=1)
 
-button=Button(frame,text="очистить",command=delete)
-button.pack(side=LEFT)
+tree.heading("name", text="Название города")
+tree.heading("people", text="Население")
+tree.heading("square", text="Площадь")
 
-def save():
-    a=editor.get(1.0,END)
-    file=open("save.txt","w",encoding="UTF-8")
-    file.write(a)
+frame=ttk.Frame()
+frame.pack(anchor="nw",pady=10)
+label=ttk.Label(frame,text="Название города")
+label.pack(side="left")
+entry=ttk.Entry(frame)
+entry.pack(side="left")
 
-btn=Button(frame,text="сохранить",command=save)
-btn.pack(side=LEFT)
+frame2=ttk.Frame()
+frame2.pack(anchor="nw")
+label2=ttk.Label(frame2,text="Население")
+label2.pack(side="left")
+entry2=ttk.Entry(frame2)
+entry2.pack(side="left",pady=10)
 
-def zzzz():
-    w=open("save.txt","r")
-    editor.delete(1.0,END)
-    editor.insert(1.0,w.read())
+frame3=ttk.Frame()
+frame3.pack(anchor="nw")
+label3=ttk.Label(frame3,text="Площадь")
+label3.pack(side="left")
+entry3=ttk.Entry(frame3)
+entry3.pack(side="left",pady=10)
 
-btn2=Button(frame,text="загрузить",command=zzzz)
-btn2.pack(side=LEFT)
+def dob():
+    global r
+    r=[entry.get(),entry2.get(),entry3.get()]
+    for person in r:
+        tree.insert("", "end",values=person)
 
-def schet():
-    s=editor.get(1.0,END)
-    answer=len(s)
-    answer-=1
-    root.title(answer)
-
-btn3=Button(frame,text="подсчитать символы",command=schet)
-btn3.pack(side=LEFT)
-
-frame2=Frame()
-frame2.pack(anchor=NW)
-
-def yellow():
-    d=editor.selection_get()
-    editor.tag_add("yellow_tag","sel.first","sel.last")
-    editor.tag_configure("yellow_tag",background="yellow")
-
-btn4=Button(frame2,text="желтый",background="yellow",command=yellow)
-btn4.pack(side=LEFT)
+btn=ttk.Button(text="добавить",command=dob())
+btn.pack(anchor="nw")
 
 root.mainloop()
