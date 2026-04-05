@@ -6,13 +6,12 @@ root.geometry("700x450")
 
 columns=["name","people","square"]
 
-
-tree=ttk.Treeview(columns=columns,show="headings")
+tree=ttk.Treeview(columns=columns,show="headings",selectmode="extended")
 tree.pack(anchor="nw",expand=1)
 
-tree.heading("name", text="Название города")
-tree.heading("people", text="Население")
-tree.heading("square", text="Площадь")
+a=tree.heading("name", text="Название города")
+b=tree.heading("people", text="Население")
+c=tree.heading("square", text="Площадь")
 
 frame=ttk.Frame()
 frame.pack(anchor="nw",pady=10)
@@ -35,13 +34,34 @@ label3.pack(side="left")
 entry3=ttk.Entry(frame3)
 entry3.pack(side="left",pady=10)
 
+def country():
+    a = tree.heading("name", text="Название страны")
+    label.config(text="Название страны")
+    tree.delete(*tree.get_children())
+
+def town():
+    a = tree.heading("name", text="Название города")
+    label.config(text="Название города")
+    tree.delete(*tree.get_children())
+
+radio=ttk.Radiobutton(text="town",command=town)
+radio.pack(anchor="ne")
+radio=ttk.Radiobutton(text="country",command=country)
+radio.pack(anchor="ne")
+
 def dob():
     global r
     r=[entry.get(),entry2.get(),entry3.get()]
-    for person in r:
-        tree.insert("", "end",values=person)
 
-btn=ttk.Button(text="добавить",command=dob())
+    tree.insert("", "end",values=r)
+
+btn=ttk.Button(text="добавить",command=dob)
 btn.pack(anchor="nw")
 
+def sort():
+    l = [tree.item("IOO1"vyhbgg,"people")]
+    print(l)
+
+btnn=ttk.Button(text="сортировать",command=sort)
+btnn.pack(anchor="center")
 root.mainloop()
