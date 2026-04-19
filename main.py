@@ -1,67 +1,47 @@
 from tkinter import ttk
-import tkinter as tk
-
-root=tk.Tk()
+from tkinter import *
+from tkinter.messagebox import showinfo,showwarning
+root=Tk()
 root.geometry("700x450")
+root.title("калькулятор")
 
-columns=["name","people","square"]
+znak=["+","-","*","/"]
 
-tree=ttk.Treeview(columns=columns,show="headings",selectmode="extended")
-tree.pack(anchor="nw",expand=1)
 
-a=tree.heading("name", text="Название города")
-b=tree.heading("people", text="Население")
-c=tree.heading("square", text="Площадь")
+label=ttk.Label(text="первое число")
+label.pack(anchor="nw")
 
-frame=ttk.Frame()
-frame.pack(anchor="nw",pady=10)
-label=ttk.Label(frame,text="Название города")
-label.pack(side="left")
-entry=ttk.Entry(frame)
-entry.pack(side="left")
+entr=ttk.Entry()
+entr.pack(anchor="nw")
 
-frame2=ttk.Frame()
-frame2.pack(anchor="nw")
-label2=ttk.Label(frame2,text="Население")
-label2.pack(side="left")
-entry2=ttk.Entry(frame2)
-entry2.pack(side="left",pady=10)
+label2=ttk.Label(root,text="второе число")
+label2.pack(anchor="nw")
 
-frame3=ttk.Frame()
-frame3.pack(anchor="nw")
-label3=ttk.Label(frame3,text="Площадь")
-label3.pack(side="left")
-entry3=ttk.Entry(frame3)
-entry3.pack(side="left",pady=10)
+entr2=ttk.Entry(root)
+entr2.pack(anchor="nw")
 
-def country():
-    a = tree.heading("name", text="Название страны")
-    label.config(text="Название страны")
-    tree.delete(*tree.get_children())
+firstnumber=entr.get()
+secondnumber=entr2.get()
 
-def town():
-    a = tree.heading("name", text="Название города")
-    label.config(text="Название города")
-    tree.delete(*tree.get_children())
+def counter():
+    window=Tk()
 
-radio=ttk.Radiobutton(text="town",command=town)
-radio.pack(anchor="ne")
-radio=ttk.Radiobutton(text="country",command=country)
-radio.pack(anchor="ne")
+    global a
 
-def dob():
-    global r
-    r=[entry.get(),entry2.get(),entry3.get()]
+    combo=ttk.Combobox(window,values=znak)
+    combo.pack(anchor="nw")
+    a=combo.get()
 
-    tree.insert("", "end",values=r)
+btn=ttk.Button(text="знак",command=counter)
+btn.pack(anchor="nw",pady=10)
 
-btn=ttk.Button(text="добавить",command=dob)
-btn.pack(anchor="nw")
+def schet():
+    global result
+    if a == "+":
+        result=firstnumber+secondnumber
+        showinfo("результат",message=result)
 
-def sort():
-    l = [tree.item("IOO1"vyhbgg,"people")]
-    print(l)
+btn4=ttk.Button(text="=",command=schet)
+btn4.pack(anchor="nw",pady=10)
 
-btnn=ttk.Button(text="сортировать",command=sort)
-btnn.pack(anchor="center")
 root.mainloop()
