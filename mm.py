@@ -9,4 +9,4 @@ entr.pack(anchor="nw")
 
 frame=Frame()
 frame.pack(anchor="nw")
-tk.mainloop()
+tk.mainloop()r
